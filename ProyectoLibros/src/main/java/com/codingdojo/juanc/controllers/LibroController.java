@@ -1,5 +1,7 @@
 package com.codingdojo.juanc.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,15 @@ import com.codingdojo.juanc.services.LibroServicio;
 public class LibroController {
 	
 	@Autowired LibroServicio libroServicio;
+	
+	@GetMapping("/libros")
+	public String todosLosLibros(Model model) {
+		
+		List<Libro> libros = libroServicio.todosLosLibros();
+		model.addAttribute("ListaLibros", libros);
+		
+		return "showAll.jsp";
+	}
 	
 	@GetMapping("/libros/{id}")
 	public String buscarLibroId(Model model,
